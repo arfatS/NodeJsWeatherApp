@@ -3,7 +3,10 @@ console.log('STATIC JS LOADED !')
 const weatherForm = document.querySelector('form')
 const searchInput = document.querySelector('input')
 const messageOne = document.querySelector('#messageOne')
-const messageTwo = document.querySelector('#messageTwo')
+const dataOne = document.querySelector('#dataOne')
+const dataTwo = document.querySelector('#dataTwo')
+const dataThree = document.querySelector('#dataThree')
+
 
 weatherForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -11,7 +14,9 @@ weatherForm.addEventListener('submit', (e) => {
     const location = searchInput.value
 
     messageOne.textContent = 'Please wait...'
-    messageTwo.textContent = ''
+    dataOne.textContent = ''
+    dataTwo.textContent = ''
+    dataThree.textContent = ''
 
     fetch(`/weather?address=${location}`)
     .then((response) => {
@@ -19,10 +24,15 @@ weatherForm.addEventListener('submit', (e) => {
         .then((data) => {
             if (data.error) {
                 messageOne.textContent = data.error
-                messageTwo.textContent = ''
+                dataOne.textContent = ''
+                dataTwo.textContent = ''
+                dataThree.textContent = ''
             } else {
                 messageOne.textContent = data.location
-                messageTwo.textContent = data.forecastData
+
+                dataOne.textContent = data.forecastData[0]
+                dataTwo.textContent = data.forecastData[1]
+                dataThree.textContent = data.forecastData[2]
             }
         })
     })
